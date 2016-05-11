@@ -87,6 +87,46 @@ br.getEmbedCode = function(frameWidth, frameHeight, viewParams) {
     return "Embed code not supported in bookreader demo.";
 }
 
+br.getOpenLibraryRecord = function(callback) {
+  callback(this, {
+    "table_of_contents": [
+      {
+        "title": "Untitled",
+        "label": "",
+        "pagenum": "2",
+        "level": 1
+      },
+      {
+        "title": "National Bellas Hess Company Book",
+        "label": "",
+        "pagenum": "212",
+        "level": 1
+      },
+      {
+        "title": "Lucky Strike “It’s Toasted” Book",
+        "label": "",
+        "pagenum": "237",
+        "level": 1
+      },
+      {
+        "title": "Sugar Honey Maid Graham Crackers Book",
+        "label": "",
+        "pagenum": "253",
+        "level": 1
+      },
+      {
+        "title": "Kaleidoscope Book",
+        "label": "",
+        "pagenum": "275",
+        "level": 1
+      },
+    ]
+  })
+}
+
+// start in '2up' mode
+br.mode = 2
+
 // Let's go!
 br.init();
 
@@ -94,3 +134,10 @@ br.init();
 $('#BRtoolbar').find('.read').hide();
 $('#textSrch').hide();
 $('#btnSrch').hide();
+
+// remove zoom buttons and top toolbar
+$('#BRpage')
+  .css({width: '220px'})
+  .find('.zoom_in, .zoom_out').remove()
+
+$('#BRtoolbar').remove()
