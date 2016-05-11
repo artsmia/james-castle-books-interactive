@@ -54,3 +54,14 @@ listPagesJS:
 cloneBookReaderRepo:
 	[[ -d bookreader ]] || git clone openlibrary/bookreader
 	cp reader.js bookreader/BookReaderDemo/BookReaderJSSimple.js
+
+symlinkImages:
+	ln -s $(imageLocation) images
+
+serve:
+	cd bookreader && http-server -p 4005 --cors &
+	cd images && http-server -p 4007 --cors &
+
+deploy:
+	rsync -zva images/*.jpg $(deployLocation)/images
+	rsync -zvaL bookreader/ $(deployLocation)
