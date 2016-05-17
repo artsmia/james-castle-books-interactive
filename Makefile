@@ -74,3 +74,12 @@ serve:
 deploy:
 	rsync -zva images/*.jpg $(deployLocation)/images
 	rsync -zvaL bookreader/ $(deployLocation)
+
+# keep running if the wifi goes down in the galleries
+localizeJSDependencies:
+	@cd bookreader/BookReaderDemo; \
+	grep 'script.*src="http:' index.html \
+	| sed -e 's/.*src="\(.*\)".*/\1/' \
+	| xargs wget; \
+	sed -i '' 's|http://www.archive.org/bookreader/||g' index.html
+
