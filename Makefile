@@ -19,25 +19,24 @@ rotateFirstBook:
 # Break them apart and stash the original image (`spreads/*`)
 cropDoublePages:
 	ls 20150507_mia335_18* | grep -v '-' | tail -n+3 | while read spread; do \
-		convert -crop 1000x1337x1100 $$spread $$spread; \
+		convert -crop 50%x100% $$spread $$spread; \
 		mv $$spread spreads; \
 	done
 	ls 20150507_mia335_19* | grep -v '-' | tail -n+2 | while read spread; do \
-		convert -crop 1000x1337x1100 $$spread $$spread; \
+		convert -crop 50%x100% $$spread $$spread; \
 		mv $$spread spreads; \
 	done
 	ls mia_5045* | grep -v '-' | tail -n+2 | head -9 | while read spread; do \
-		convert -crop 1000x1284x1100 $$spread $$spread; \
+		convert -crop 50%x100% $$spread $$spread; \
 		mv $$spread spreads; \
 	done
 	ls mia_5051* | grep -v '-' | while read spread; do \
-		convert -crop 1000x1061x1100 $$spread $$spread; \
+		convert -crop 50%x100% $$spread $$spread; \
 		mv $$spread spreads; \
 	done
 	rm mia_5051449-0.jpg mia_5051462-1.jpg
 
-# TODO: those two getting rm`d don't quite crop correctly - some of the fringe of the page gets lost. Fix maybe
-# Maybe todo: measure each image and automatically choose the (width/2, 1*height) page splits?
+# TODO: those two getting rm`d don't crop correctly - some of the fringe of the page gets lost. Fix maybe
 
 # replace the original, un-split double page images
 resetCrops:
