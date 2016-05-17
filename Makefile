@@ -1,9 +1,19 @@
 transformToJpeg:
-	vipsthumbnail -t --size 2000 --output=%s.jpg *.tif
+	ls 151008*.tif | xargs vipsthumbnail -t --size 1000 --output=%s.jpg
+	ls *.tif | grep -v 151008 | xargs vipsthumbnail -t --size 2000 --output=%s.jpg
 
 # the first book is photographed sideways? Rotate all the pages to their proper orientation
+# it's photographed in 3 different rotations somehow, adjust so adjust all pages face each other
+rotateRight='151008_mia335_504745[5,7].jpg'
+dontRotate='151008_mia335_5047459.jpg\|151008_mia335_504746[0,3-8]'
 rotateFirstBook:
-	ls 151008*.jpg | xargs -I '{}' sh -c "echo {} && jpegtran -rotate 270 {} | sponge {}"
+	ls 151008*.jpg \
+	| grep -v $(rotateRight) \
+	| grep -v $(dontRotate) \
+	| xargs -I '{}' sh -c "echo {} && jpegtran -rotate 270 {} | sponge {}"
+	ls 151008*.jpg \
+	| grep $(rotateRight) \
+	| xargs -I '{}' sh -c "echo {} && jpegtran -rotate 90 {} | sponge {}"
 
 # The last 3 books are photographed in 2-page spreads.
 # Break them apart and stash the original image (`spreads/*`)
