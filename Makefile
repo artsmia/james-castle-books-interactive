@@ -46,14 +46,14 @@ resetCrops:
 # echo the pages as a JS array, ready to paste into the bookreader JS
 # `spacedPages` puts a blank page between sibling pages
 listPagesJS:
-	@pages=$$(ls -1 *.jpg | tr '\n' ',' | sed 's/,$$//'); \
+	@cd images; pages=$$(ls -1 *.jpg | tr '\n' ',' | sed 's/,$$//'); \
 	spacedPages=$$(echo $$pages | sed ' \
-		s/\(20150507_mia335_181847.jpg\)/blank.jpg,\1/; \
-		s/\(20150507_mia335_193736.jpg\)/blank.jpg,\1/; \
-		s/\(mia_5045614.jpg\)/blank.jpg,\1/; \
-		s/\(mia_5051449-1.jpg\)/blank.jpg,blank.jpg,\1/; \
+		s/\(20150507_mia335_181847.jpg\)/break-bellas.jpg,\1/; \
+		s/\(20150507_mia335_193736.jpg\)/break-lucky.jpg,\1/; \
+		s/\(mia_5045614.jpg\)/break-graham.jpg,\1/; \
+		s/\(mia_5051449-1.jpg\)/break-kaleidscope.jpg,\1/; \
 	'); \
-	echo "var pages = \"$$spacedPages\"\n  .split(',')"
+	echo "var rawPages = \"break-untitled.jpg,$$spacedPages\""
 
 # ----------------
 #  done with images
