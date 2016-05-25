@@ -146,6 +146,12 @@ br.getOpenLibraryRecord = function(callback) {
 // start in '2up' mode
 br.mode = 2
 
+// disable '1up': intercept switchMode
+br.switchMode = function(mode) {
+  if(mode == 1) return br.switchMode(2)
+  BookReader.prototype.switchMode.call(this, mode)
+}
+
 // Let's go!
 br.init();
 
@@ -156,7 +162,7 @@ $('#btnSrch').hide();
 
 // remove zoom buttons and top toolbar
 $('#BRpage')
-  .css({width: '220px'})
-  .find('.zoom_in, .zoom_out').remove()
+  .css({width: '160px'})
+  .find('.zoom_in, .zoom_out, .onepg').remove()
 
 $('#BRtoolbar').remove()
